@@ -5,3 +5,14 @@ Deployment and Development:
 Expo
 
 Using Firebase in the later stages of the progress to add authentication module
+
+------------
+rough app architecture overview:
+
+Expo (app development, deployment to Web, Android and iOS)
+| -> backend built in Node.js
+| -> connect to Firebase with Firebase JS SDK
+    | -> Firebase - Database service
+    | -> Firebase - Authentication (SSO - Google) service
+| -> frontend built in HTML/CSS with JS elements
+------------
