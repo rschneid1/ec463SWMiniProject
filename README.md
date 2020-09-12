@@ -1,6 +1,6 @@
 # BU ENG EC 463 Senior Design Mini-Project
 
-### Authors: Ryan Schneider ( @rschneid1 ), Shazor Shahid ( @sshahid-bu )
+## Authors: Ryan Schneider ( @rschneid1 ), Shazor Shahid ( @sshahid-bu )
 
 ------
 
