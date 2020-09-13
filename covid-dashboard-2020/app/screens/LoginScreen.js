@@ -6,6 +6,7 @@ import { StyleSheet, Text, View }
 
 
   // Initialize Firebase
+  // https://docs.expo.io/guides/using-firebase/#user-authentication
   // https://docs.expo.io/versions/latest/sdk/google-sign-in/
 
   const firebaseConfig = {
