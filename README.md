@@ -9,3 +9,6 @@
 built in JavaScript using Expo framework, with Single-Sign-On (SSO) authentication powered by Firebase
 
 ------
+
+Expo build link: https://expo.io/@sshahid/covid-dashboard-2020
+

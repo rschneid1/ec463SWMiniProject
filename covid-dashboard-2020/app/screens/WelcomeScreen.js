@@ -23,14 +23,11 @@ function WelcomeScreen(props) {
         
         <Text style={styles.welcome} onPress={handlePress}> Welcome to the COVID-19 Dashboard 2020 </Text>
         
-
         <TouchableOpacity onPress={() => alert("pressed")} style={styles.button}>
           <Text style={styles.buttonText}> button </Text>  
         </TouchableOpacity>
-        
-        <div>
-          <Text style={styles.buttonText}>Current Time: {new Date().toLocaleTimeString()}</Text>
-        </div>  
+        <Text style={styles.buttonText}>Current Time: {new Date().toLocaleTimeString()}</Text>
+
         
         {/* <TextInput style={{height:24, borderColor:'red', borderWidth: 2}} defaultValue="What is your name?" /> */}
       </SafeAreaView>

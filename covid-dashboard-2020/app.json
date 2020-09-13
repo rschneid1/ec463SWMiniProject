@@ -21,6 +21,8 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }
+    },
+    "description": "COVID-19 Dashboard 2020",
+    "githubUrl": "https://github.com/rschneid1/ec463SWMiniProject"
   }
 }
