@@ -32,7 +32,6 @@ function WelcomeScreen(props) {
           <Text style={styles.buttonText}>Current Time: {new Date().toLocaleTimeString()}</Text>
         </div>  
         
-        {/* ReactDom.render(element, document.getElementById('root')); */}
         {/* <TextInput style={{height:24, borderColor:'red', borderWidth: 2}} defaultValue="What is your name?" /> */}
       </SafeAreaView>
     </ImageBackground>
