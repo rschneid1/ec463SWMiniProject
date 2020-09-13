@@ -1,13 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler'
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import WelcomeScreen from './app/screens/WelcomeScreen';
+import {StyleSheet, Text, View} from 'react-native';
+import * as firebase from 'firebase';
+import 'firebase/auth';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "api-key",
+  authDomain: "project-id.firebaseapp.com",
+  projectId: "project-id",
+  messagingSenderId: "sender-id",
+  appId: "app-id",
+  measurementId: "G-measurement-id"
+};
+
+firebase.initializeApp(firebaseConfig);
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <WelcomeScreen />
   );
 }
 
