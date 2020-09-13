@@ -4,7 +4,6 @@ import { StyleSheet, Text, View }
   import firebase from 'firebase';
   // import 'firebase/auth';
 
-
   // Initialize Firebase
   // https://docs.expo.io/guides/using-firebase/#user-authentication
   // https://docs.expo.io/versions/latest/sdk/google-sign-in/

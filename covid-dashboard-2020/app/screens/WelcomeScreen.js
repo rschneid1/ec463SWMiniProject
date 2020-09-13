@@ -5,31 +5,32 @@ import { Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableHighli
 
 import background from '../assets/background.jpg'
 
-var imgW = 640;
-var imgH = 240;
-const handlePress = () => console.log("Text pressed");
+const imgW = 350;
+const imgH = 175;
 
-function WelcomeScreen(props) {
+function WelcomeScreen() {
   return (
-    <ImageBackground style={styles.background} resizeMode="cover" source={background}  >
 
-      <SafeAreaView style={styles.container} >
+    <ImageBackground style={styles.background} resizeMode="cover" source={background}  >
+      <SafeAreaView style={styles.container}>
         
         <StatusBar style="auto" />
-        
         <TouchableHighlight onPress={() => console.log("Image pressed")}> 
-          <Image blurRadius={0} source={{ width:imgW, height:imgH, uri:`https://picsum.photos/${imgW}/${imgH}`}} />
+          <Image blurRadius={0} source={{width:imgW, height:imgH, uri:`https://picsum.photos/${imgW}/${imgH}`}} />
         </TouchableHighlight>
         
-        <Text style={styles.welcome} onPress={handlePress}> Welcome to the COVID-19 Dashboard 2020 </Text>
+        <Text style={styles.welcome}> Welcome to </Text>
+        <Text style={styles.appName}> COVID-19 Daily Tracker </Text>
         
-        <TouchableOpacity onPress={() => alert("pressed")} style={styles.button}>
-          <Text style={styles.buttonText}> button </Text>  
+        <TouchableOpacity /* onPress={() => authentication } */ style={styles.loginButton}>
+          <Text style={styles.buttonText}> Login </Text>  
         </TouchableOpacity>
-        <Text style={styles.buttonText}>Current Time: {new Date().toLocaleTimeString()}</Text>
+        <TouchableOpacity /*onPress={() => authentication } */ style={styles.signupButton}>
+          <Text style={styles.buttonText}> Sign-up </Text>  
+        </TouchableOpacity>
 
-        
-        {/* <TextInput style={{height:24, borderColor:'red', borderWidth: 2}} defaultValue="What is your name?" /> */}
+        {/* <Text style={styles.buttonText}>Current Time: {new Date().toLocaleTimeString()}</Text> */}
+
       </SafeAreaView>
     </ImageBackground>
   );
@@ -46,23 +47,34 @@ const styles = StyleSheet.create({
   welcome: { 
     color:'#FFF', 
     fontSize:24, 
-    marginHorizontal:16, 
-    marginBottom:24,
+    marginHorizontal:10, 
+    marginBottom:5,
     marginTop:24,
+  },
+  appName: { 
+    color:'#FFF', 
+    fontSize:32, 
+    marginHorizontal:10, 
+    marginBottom:10,
+    marginTop:0,
     fontFamily:'Trebuchet MS',
   },
-  button: { 
-    backgroundColor:'gray', 
-    padding:20, 
-    borderRadius:5, 
+  loginButton: { 
+    backgroundColor:'green', 
+    padding:16, 
+    borderRadius:3, 
+    width:"20%",
+    alignItems:'center',
   },
-  loginButton: {
-    width:"25%",
-    height: 70,
-    backgroundColor:"#fc5c65",
+  signupButton: {
+    backgroundColor:'dodgerblue', 
+    padding:16, 
+    borderRadius:3, 
+    width:"20%",
+    alignItems:'center',
   },
   buttonText: { 
-    fontSize:20, 
+    fontSize:24, 
     color:'#FFF',
   },
   background: {
