@@ -34,7 +34,7 @@ export default function LoginScreen( {navigation} ) {
 const styles = StyleSheet.create({
   textStyle: {
     flex: 1,
-    // backgroundColor: '#003f5c',
+    backgroundColor: '#003f5c',
     alignItems:'center',
     justifyContent:'center',
   }

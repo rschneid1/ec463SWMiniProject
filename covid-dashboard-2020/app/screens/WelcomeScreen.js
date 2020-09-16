@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } 
+import { Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity } 
   from 'react-native';
 
 import background from '../assets/background.jpg'
@@ -80,5 +80,4 @@ const styles = StyleSheet.create({
     width:'100%',
     height:'100%',
   },
-
 })
