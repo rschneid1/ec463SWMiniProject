@@ -5,10 +5,10 @@ import { Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableHighli
 
 import background from '../assets/background.jpg'
 
-const imgW = 350;
-const imgH = 175;
+const imgW = 360;
+const imgH = 180;
 
-function WelcomeScreen() {
+export default function WelcomeScreen( {navigation} ) {
   return (
 
     <ImageBackground style={styles.background} resizeMode="cover" source={background}  >
@@ -22,10 +22,10 @@ function WelcomeScreen() {
         <Text style={styles.welcome}> Welcome to </Text>
         <Text style={styles.appName}> COVID-19 Daily Tracker </Text>
         
-        <TouchableOpacity /* onPress={() => authentication } */ style={styles.loginButton}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login') } style={styles.loginButton}>
           <Text style={styles.buttonText}> Login </Text>  
         </TouchableOpacity>
-        <TouchableOpacity /*onPress={() => authentication } */ style={styles.signupButton}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login') } style={styles.signupButton}>
           <Text style={styles.buttonText}> Sign-up </Text>  
         </TouchableOpacity>
 
@@ -35,8 +35,6 @@ function WelcomeScreen() {
     </ImageBackground>
   );
 }
-
-export default WelcomeScreen;
 
 const styles = StyleSheet.create({
   container: { 
