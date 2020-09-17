@@ -23,7 +23,7 @@ class Dashboard extends React.Component {
       <SafeAreaView style={styles.container}>
         <Text style={styles.welcome}> Welcome, { name } </Text>
         
-        <TouchableOpacity onPress={() => { firebase.auth().signOut(); this.props.navigation.navigate('Welcome') } } style={styles.loginButton}>
+        <TouchableOpacity onPress={() => { firebase.auth().signOut(); this.props.navigation.push('Welcome') } } style={styles.loginButton}>
           <Text style={styles.buttonText}> Logout </Text>
         </TouchableOpacity>
 

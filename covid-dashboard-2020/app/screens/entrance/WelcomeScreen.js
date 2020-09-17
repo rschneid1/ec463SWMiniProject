@@ -26,9 +26,10 @@ export default function WelcomeScreen( {navigation} ) {
   React.useEffect( ()=> {
     if (response?.type === 'success') {
       const { id_token } = response.params;
-      
+
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
       firebase.auth().signInWithCredential(credential);
+      console.log("Login successful, moving to dashboard");
       navigation.navigate('Dashboard');
     }
   }, [response]);
