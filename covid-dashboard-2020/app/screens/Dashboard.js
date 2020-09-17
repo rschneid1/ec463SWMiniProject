@@ -1,55 +1,47 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
-import firebase from 'firebase'
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+
+var name, email, photoURL, signedInWith;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    user.providerData.forEach(function (profile) {
+      name = profile.displayName;
+      email = profile.email;
+      photoURL = profile.photoURL;
+      signedInWith = profile.providerId;
+    })
+  } else { console.log("No user signed in or Authentication failed."); }
+})
 
 class Dashboard extends React.Component {
 
   render() {
-      return (
-          <View style={styles.container}>
-              <Text>Profile Screen</Text>
-              <Text>{this.props.user.email}</Text>
-              <Button title='Logout' />
-          </View>
-      )
+    return (
+      
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.welcome}> Welcome, { name } </Text>
+        
+        <TouchableOpacity onPress={() => { firebase.auth().signOut(); this.props.navigation.navigate('Welcome') } } style={styles.loginButton}>
+          <Text style={styles.buttonText}> Logout </Text>
+        </TouchableOpacity>
+
+      </SafeAreaView>
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center'
-  },
-  inputBox: {
-      width: '85%',
-      margin: 10,
-      padding: 15,
-      fontSize: 16,
-      borderColor: '#d3d3d3',
-      borderBottomWidth: 1,
-      textAlign: 'center'
-  },
-  button: {
-      marginTop: 30,
-      marginBottom: 20,
-      paddingVertical: 5,
-      alignItems: 'center',
-      backgroundColor: '#FFA611',
-      borderColor: '#FFA611',
-      borderWidth: 1,
-      borderRadius: 5,
-      width: 200
-  },
-  buttonText: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: '#fff'
-  },
-  buttonSignup: {
-      fontSize: 12
-  }
-})
-
 export default Dashboard;
+
+const styles = StyleSheet.create({
+  container: 
+  { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center',
+  },
+  loginButton: 
+  { backgroundColor:'dodgerblue', padding:6, borderRadius:5, marginTop:10, width:"24%", alignItems:'center',
+  },
+  welcome: 
+  { color:'#222', fontSize:24, marginHorizontal:10, marginBottom:5, marginTop:24,
+  },
+})

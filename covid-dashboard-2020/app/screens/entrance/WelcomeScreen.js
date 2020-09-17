@@ -10,19 +10,20 @@ import { firebaseConfig } from '../../../config';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 
+
 // Initialize Firebase
 if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 
 // https://docs.expo.io/guides/authentication/#google
 WebBrowser.maybeCompleteAuthSession();
 
-export default function WelcomeScreen( {navigation} ) {
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-      clientId: '467420770701-jvmc15drmmrh1ng1kn4vnl1v3943spma.apps.googleusercontent.com',
-      },
+export default function WelcomeScreen( {navigation} ) {  
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
+    { clientId: '467420770701-jvmc15drmmrh1ng1kn4vnl1v3943spma.apps.googleusercontent.com',
+    },
   );
 
-  React.useEffect(() => {
+  React.useEffect( ()=> {
     if (response?.type === 'success') {
       const { id_token } = response.params;
       
