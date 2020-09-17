@@ -1,32 +1,36 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
+  from 'react-native'
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
-var name, email, photoURL, signedInWith;
-firebase.auth().onAuthStateChanged(function(user) {
+var name, email, photoURL, provider;
+
+firebase.auth().onAuthStateChanged( user => {
   if (user) {
-    user.providerData.forEach(function (profile) {
-      name = profile.displayName;
-      email = profile.email;
-      photoURL = profile.photoURL;
-      signedInWith = profile.providerId;
-    })
-  } else { console.log("No user signed in or Authentication failed."); }
+    console.log("Retrieving user data.");
+
+    name      = user.displayName;
+    email     = user.email;
+    photoURL  = user.photoURL;
+    provider  = user.providerId;
+
+  } else { console.log("Signed out."); }
 })
 
 class Dashboard extends React.Component {
-
   render() {
     return (
-      
       <SafeAreaView style={styles.container}>
         <Text style={styles.welcome}> Welcome, { name } </Text>
-        
-        <TouchableOpacity onPress={() => { firebase.auth().signOut(); this.props.navigation.push('Welcome') } } style={styles.loginButton}>
+        <Image style={styles.profilePicture} source={{ uri: photoURL }} />
+
+        <Button title="COVID-19 Statistics" onPress={ ()=> { this.props.navigation.navigate('Statistics') } } />
+
+        <TouchableOpacity onPress={ ()=> { firebase.auth().signOut(); this.props.navigation.push('Welcome') } } 
+            style={styles.loginButton}>
           <Text style={styles.buttonText}> Logout </Text>
         </TouchableOpacity>
-
       </SafeAreaView>
     )
   }
@@ -44,4 +48,8 @@ const styles = StyleSheet.create({
   welcome: 
   { color:'#222', fontSize:24, marginHorizontal:10, marginBottom:5, marginTop:24,
   },
+  profilePicture:
+  { width:'10%', height:'10%', resizeMode:'contain', marginTop:10, marginBottom:10,
+  },
+
 })
