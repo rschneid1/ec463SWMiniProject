@@ -1,21 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ActivityIndicator, SafeAreaView, StyleSheet }
   from 'react-native';
 import firebase from 'firebase';
 
-class LoadingScreen extends Component {
-  componentDidMount() {
-    this.checkIfLoggedIn();
-  }
-  checkIfLoggedIn = () => {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if(user) {
-        this.props.navigation.navigate('Dashboard');
-      } else {
-        this.props.navigation.navigate('Login');
-      }
-    }.bind(this))
-  }
+class LoadingScreen extends React.Component {
+  
   render() {
     return (
       <SafeAreaView style={styles.container}>

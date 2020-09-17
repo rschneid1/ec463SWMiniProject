@@ -1,44 +1,27 @@
-import React, { Component } from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity }
+import React from 'react';
+import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity }
   from 'react-native';
 import firebase from 'firebase';
-import * as GoogleSignIn from 'expo-google-sign-in';
 
-class LoginScreen extends Component {
-  state = { email: "", password: "", errorMessage: null }
-  handlerLogin = () => {
-    const { email, password } = this.state;
-    firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
-      this.props.navigation.navigate("Main");
-    }).catch(error => this.setState({ errorMessage: error.message }));
-  }
+// const { type, accessToken, user} = await Google.logInAsync(config);
+// const clientId = ''
+// if (type === 'success') {
+//   // Then you can use Google REST API
+//   let userInfoResponse = await fetch('https://google.apis.com/userinfo/v2/me', {
+//     headers: { Authorization: `Bearer ${accessToken}` },
+//   })
+// }
+
+
+class LoginScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        {this.state.errorMessage && ( <Text style={{color:'red'}}>{this.state.errorMessage}</Text> ) }
-        <TextInput
-            style={styles.inputBox}
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-            placeholder='Email'
-            autoCapitalize='none'
-        />
-        <TextInput
-          style={styles.inputBox}
-          value={this.state.password}
-          onChangeText={password => this.setState({ password })}
-          placeholder='Password'
-          secureTextEntry={true}
-        />
-        
         <TouchableOpacity style={styles.button} onPress={this.handlerSignUp}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}> Login </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={()=> this.props.navigation.navigate('Signup')}>
-          <Text style={styles.buttonText}>Don't have an account? Sign-up.</Text>
-        </TouchableOpacity>
-        <Button title="Go back" onPress={() => this.props.navigation.goBack()} />
+        <Button title="Go back" onPress={ ()=> this.props.navigation.goBack() } />
       </SafeAreaView>
     )
   }

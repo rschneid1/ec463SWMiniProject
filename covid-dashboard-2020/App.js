@@ -7,17 +7,17 @@ import { firebaseConfig } from './config';
 
 import WelcomeScreen  from './app/screens/entrance/WelcomeScreen';
 import LoginScreen    from './app/screens/entrance/LoginScreen';
-import SignupScreen   from './app/screens/entrance/SignupScreen';
 import LoadingScreen  from './app/screens/entrance/LoadingScreen';
 import Dashboard      from './app/screens/Dashboard';
 
-const Stack = createStackNavigator();
-
-firebase.initializeApp(firebaseConfig);
-
 // Initialize Firebase
 // https://docs.expo.io/guides/using-firebase/#user-authentication
-// https://docs.expo.io/versions/latest/sdk/google-sign-in/
+// https://docs.expo.io/versions/latest/sdk/google/
+// Making an admin access account through Firebase
+// https://firebase.google.com/docs/admin/setup
+firebase.initializeApp(firebaseConfig);
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
@@ -25,7 +25,6 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
       </Stack.Navigator>

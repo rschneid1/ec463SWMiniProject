@@ -3,17 +3,13 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 import firebase from 'firebase'
 
 class Dashboard extends React.Component {
-  handleSignout = () => {
-      firebase.auth().signOut()
-      this.props.navigation.navigate('Login')
-  }
 
   render() {
       return (
           <View style={styles.container}>
               <Text>Profile Screen</Text>
               <Text>{this.props.user.email}</Text>
-              <Button title='Logout' onPress={this.handleSignout} />
+              <Button title='Logout' />
           </View>
       )
   }
