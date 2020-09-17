@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity } 
   from 'react-native';
 
-import background from '../../assets/background.jpg'
+import background from '../../assets/abstract_background.jpg'
 
 const imgW = 360;
 const imgH = 180;
@@ -12,8 +12,8 @@ class WelcomeScreen extends Component {
 
   render() {
     return (
+      <ImageBackground style={styles.background} resizeMode="cover" source={background}>
 
-      <ImageBackground style={styles.background} resizeMode="cover" source={background}  >
         <SafeAreaView style={styles.container}>
           <StatusBar style="auto" />
 
@@ -30,9 +30,9 @@ class WelcomeScreen extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Signup') } style={styles.signupButton}>
             <Text style={styles.buttonText}> Sign-up </Text>  
           </TouchableOpacity>
-  
+
           {/* <Text style={styles.buttonText}>Current Time: {new Date().toLocaleTimeString()}</Text> */}
-  
+
         </SafeAreaView>
       </ImageBackground>
     )  
@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   welcome: { 
-    color:'#FFF', 
+    color:'#222', 
     fontSize:24, 
     marginHorizontal:10, 
     marginBottom:5,
     marginTop:24,
   },
   appName: { 
-    color:'#FFF', 
+    color:'#222', 
     fontSize:32, 
     marginHorizontal:10, 
     marginBottom:10,
@@ -63,21 +63,23 @@ const styles = StyleSheet.create({
     fontFamily:'Trebuchet MS',
   },
   loginButton: { 
-    backgroundColor:'green', 
-    padding:16, 
-    borderRadius:3, 
-    width:"20%",
+    backgroundColor:'dodgerblue', 
+    padding:6, 
+    borderRadius:5,
+    marginTop:10, 
+    width:"24%",
     alignItems:'center',
   },
   signupButton: {
-    backgroundColor:'dodgerblue', 
-    padding:16, 
-    borderRadius:3, 
-    width:"20%",
+    backgroundColor:'darkred', 
+    padding:6, 
+    borderRadius:5, 
+    marginTop:4,
+    width:"24%",
     alignItems:'center',
   },
   buttonText: { 
-    fontSize:24, 
+    fontSize:20, 
     color:'#FFF',
   },
   background: {
