@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text } 
         from 'react-native';
-import background from '../../assets/abstract_background.jpg'
+import background from '../assets/abstract_background.jpg'
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
