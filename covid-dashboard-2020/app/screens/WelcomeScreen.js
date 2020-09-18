@@ -1,20 +1,21 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
-        from 'react-native';
-import background from '../assets/abstract_background.jpg'
-
-import firebase from 'firebase/app';
+import React              from 'react';
+import { StatusBar }      from 'expo-status-bar';
+import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text,
+                        } from 'react-native';
+import firebase           from 'firebase/app';
 import 'firebase/auth';
 import { firebaseConfig } from '../../config';
-
 import * as WebBrowser    from 'expo-web-browser';
 import * as Google        from 'expo-auth-session/providers/google';
+
+import background         from '../assets/abstract_background.jpg'
 
 // Initialize Firebase
 //// https://docs.expo.io/guides/using-firebase/#user-authentication
 //// https://docs.expo.io/versions/latest/sdk/google/
-if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+if ( !firebase.apps.length ) { 
+  firebase.initializeApp(firebaseConfig); 
+}
 
 // https://docs.expo.io/guides/authentication/#google
 WebBrowser.maybeCompleteAuthSession();
@@ -36,17 +37,15 @@ export default function WelcomeScreen( {navigation} ) {
 
   React.useEffect( ()=> {
     firebase.auth().onAuthStateChanged(user => {
-      if(user) {
+      if (user) {
 		    userID = user.email;
 		    const usersRef = firebase.firestore().collection('users');
-		    if (usersRef.doc(userID).get()) {
+		    if ( usersRef.doc(userID).get() ) {
 			    var docRef = usersRef.doc(userID);
-			    docRef.get().then(function(doc) {
+			    docRef.get().then( function(doc) {
 				    var admin = doc.get('admin1');
 				    console.log(admin);
-				    if(admin == 1){
-					    navigation.navigate('AdminDashboard');
-				    }
+				    if (admin == 1) { navigation.navigate('AdminDashboard'); }
 			    })
 		    }
         navigation.navigate('Dashboard');
@@ -54,8 +53,8 @@ export default function WelcomeScreen( {navigation} ) {
     })
   })
 
-  const imgW = 360;
-  const imgH = 180;
+  const imgW = 360, 
+        imgH = 180;
 
   return (
     <ImageBackground style={styles.background} resizeMode="cover" source={background}>

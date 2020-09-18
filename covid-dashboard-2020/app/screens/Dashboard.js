@@ -1,6 +1,6 @@
-import React from 'react'
+import React    from 'react'
 import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity,View 
-  } from 'react-native'
+              } from 'react-native'
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -88,4 +88,5 @@ const styles = StyleSheet.create({
   separator: 
   { marginVertical: 8, borderBottomColor: '#737373', borderBottomWidth: StyleSheet.hairlineWidth, 
   },
+  
 })

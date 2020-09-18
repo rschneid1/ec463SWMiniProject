@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Button, FlatList, SafeAreaView, StyleSheet, Text
-  } from 'react-native';
+                                    } from 'react-native';
 
 // https://reactnative.dev/docs/network
 
@@ -22,7 +22,8 @@ const StatisticsScreen = ({navigation}) => {
     <SafeAreaView style={styles.container}> 
       {isLoading ? <ActivityIndicator/> : ( 
         <FlatList data={data} keyExtractor={({ Country }, index) => Country}
-          renderItem={ ({item})=>( <Text> {item.Country}: Cases: {item.TotalConfirmed}, Deaths: {item.TotalDeaths} </Text> 
+          renderItem={ ({item})=>( 
+            <Text> {item.Country}: Cases: {item.TotalConfirmed}, Deaths: {item.TotalDeaths} </Text> 
           )}
         />
       )}
