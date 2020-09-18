@@ -12,7 +12,7 @@ firebase.auth().onAuthStateChanged( user => {
     email     = user.email;
     photoURL  = user.photoURL;
     provider  = user.providerId;
-	  userID    = user.email;
+	userID    = user.email;
 
   } else { console.log("No sign in/Authentication failed."); }
 })

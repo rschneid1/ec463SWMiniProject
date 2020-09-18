@@ -6,6 +6,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 var name, email, photoURL, provider, userID;
+
 firebase.auth().onAuthStateChanged( user => {
   if (user) {
     name      = user.displayName;
@@ -37,9 +38,11 @@ firebase.auth().onAuthStateChanged( user => {
   } else { console.log("Signed out."); }
 })
 
-const Separator = () => ( <View style={styles.separator} /> );
+const Separator = () => (
+	<View style={styles.separator} />
+);
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
 
   render() {
     return (
@@ -63,6 +66,8 @@ export default class Dashboard extends React.Component {
     )
   }
 }
+
+export default Dashboard;
 
 const styles = StyleSheet.create({
   container: 
