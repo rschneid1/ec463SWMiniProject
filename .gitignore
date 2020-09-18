@@ -1,0 +1,17 @@
+covid-dashboard-2020/node_modules/**/*
+covid-dashboard-2020/.expo/*
+covid-dashboard-2020/npm-debug.*
+covid-dashboard-2020/*.jks
+covid-dashboard-2020/*.p8
+covid-dashboard-2020/*.p12
+covid-dashboard-2020/*.key
+covid-dashboard-2020/*.mobileprovision
+covid-dashboard-2020/*.orig.*
+covid-dashboard-2020/web-build/
+
+# macOS
+.DS_Store
+
+# protect key
+covid-dashboard-2020/config.js
+covid-dashboard-2020/ec463-sw-miniproj-firebase-adminsdk-4n2hz-7904bf671d.json
