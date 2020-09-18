@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
+import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } 
   from 'react-native'
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -11,7 +11,7 @@ firebase.auth().onAuthStateChanged( user => {
     email     = user.email;
     photoURL  = user.photoURL;
     provider  = user.providerId;
-    userID    = profile.email;
+    userID    = user.email;
     
     console.log(name, email, provider);
     
@@ -26,7 +26,7 @@ firebase.auth().onAuthStateChanged( user => {
 		Q7: 0,
 		Q8: 0
     };
-    
+
 	  const usersRef = firebase.firestore().collection('users');
     if ( !usersRef.doc(userID).get() ) {
 		usersRef.doc(userID).set(data);

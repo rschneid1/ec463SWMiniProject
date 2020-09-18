@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
+import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text } 
         from 'react-native';
 import background from '../../assets/abstract_background.jpg'
 
@@ -9,8 +9,6 @@ import 'firebase/auth';
 import { firebaseConfig } from '../../../config';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import firestore from '@react-native-firebase/firestore';
-
 
 // Initialize Firebase
 if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
@@ -35,9 +33,9 @@ export default function WelcomeScreen( {navigation} ) {
 
   React.useEffect( ()=> {
     firebase.auth().onAuthStateChanged(user => {
-      if(user) {
-        navigation.navigate('Dashboard');
-      }
+     if(user) {
+       navigation.navigate('Dashboard');
+     }
     })
   })
 
