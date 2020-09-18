@@ -4,7 +4,7 @@
 
 Results: passed
 
-Description: Single-Sign-On requires authentication through Google users, and for this app, a G-mail account through the organization bu.edu was specifically required. Any account that does not belong on this domain will not be able to access the app. Since sign-in process is handled by Google redirection, it is fast, reliable and secure.
+Description: Single-Sign-On requires authentication through Google users, and for this app, a G-mail was specifically required. Any account that does not belong on this domain will not be able to access the app. Since sign-in process is handled by Google redirection, it is fast, reliable and secure.
 
 **Access to profile dashboard**: informative, clean, accessible
 
