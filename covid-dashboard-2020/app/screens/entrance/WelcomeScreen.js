@@ -9,6 +9,8 @@ import 'firebase/auth';
 import { firebaseConfig } from '../../../config';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import firestore from '@react-native-firebase/firestore';
+
 
 // Initialize Firebase
 if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
@@ -29,6 +31,7 @@ export default function WelcomeScreen( {navigation} ) {
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
       firebase.auth().signInWithCredential(credential);
       console.log("Login successful, moving to dashboard");
+	  
       navigation.navigate('Dashboard');
     }
   }, [response]);

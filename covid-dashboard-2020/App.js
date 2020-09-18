@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavigationContainer }  from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import firestore from '@react-native-firebase/firestore';
 
 import WelcomeScreen      from './app/screens/entrance/WelcomeScreen';
 import LoadingScreen      from './app/screens/entrance/LoadingScreen';
 import Dashboard          from './app/screens/Dashboard';
-import StatisticsScreen   from './app/screens/StatisticsScreen';
+import CovidTest		  from './app/screens/CovidTest';
 
 // Initialize Firebase
 //// https://docs.expo.io/guides/using-firebase/#user-authentication
@@ -21,10 +22,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Welcome"    component={WelcomeScreen} />
-        <Stack.Screen name="Loading"    component={LoadingScreen} />
-        <Stack.Screen name="Dashboard"  component={Dashboard} />
-        <Stack.Screen name="Statistics" component={StatisticsScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen name="Loading" component={LoadingScreen} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+		<Stack.Screen name="CovidTest" component={CovidTest} />
       </Stack.Navigator>
     </NavigationContainer>
   )
