@@ -26,7 +26,8 @@ firebase.auth().onAuthStateChanged( user => {
 		Q6: 0,
 		Q7: 0,
 		Q8: 0
-	  };
+    };
+    
 	  const usersRef = firebase.firestore().collection('users');
     console.log(userID);
 
@@ -45,8 +46,10 @@ class Dashboard extends React.Component {
       
       <SafeAreaView style={styles.container}>
         <Text style={styles.welcome}> Welcome, { name } </Text>
-        <Image style={styles.profilePicture} source={{ uri: photoURL }} />
-        <Separator />
+        <Image style={styles.profilePicture} source={ { uri: photoURL } } />
+        
+        <Separator/>
+        
         <Button title="Daily Symptom Tracker" onPress={ ()=> {this.props.navigation.navigate('CovidTest') } } />
         <Button title="COVID-19 Statistics" onPress={ ()=> { this.props.navigation.navigate('Statistics') } } />
 
@@ -73,9 +76,10 @@ const styles = StyleSheet.create({
   welcome: 
   { color:'#222', fontSize:24, marginHorizontal:10, marginBottom:5, marginTop:24,
   },
-  separator: { 
-	marginVertical: 8,
-	borderBottomColor: '#737373',
-	borderBottomWidth: StyleSheet.hairlineWidth,
+  profilePicture:
+  { width:'10%', height:'10%', resizeMode:'contain', marginTop:10, marginBottom:10,
+  },
+  separator: 
+  { marginVertical: 8, borderBottomColor: '#737373', borderBottomWidth: StyleSheet.hairlineWidth, 
   },
 })

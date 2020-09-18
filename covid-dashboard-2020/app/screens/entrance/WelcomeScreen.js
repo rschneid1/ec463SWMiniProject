@@ -7,8 +7,9 @@ import background from '../../assets/abstract_background.jpg'
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { firebaseConfig } from '../../../config';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
+
+import * as WebBrowser    from 'expo-web-browser';
+import * as Google        from 'expo-auth-session/providers/google';
 
 // Initialize Firebase
 if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
@@ -17,10 +18,10 @@ if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 WebBrowser.maybeCompleteAuthSession();
 
 export default function WelcomeScreen( {navigation} ) {  
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
-    { clientId: '467420770701-jvmc15drmmrh1ng1kn4vnl1v3943spma.apps.googleusercontent.com',
-    },
-  );
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest( { 
+    clientId: '467420770701-jvmc15drmmrh1ng1kn4vnl1v3943spma.apps.googleusercontent.com',
+    }
+  )
 
   React.useEffect( ()=> {
     if (response?.type === 'success') {
@@ -28,15 +29,10 @@ export default function WelcomeScreen( {navigation} ) {
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
       firebase.auth().signInWithCredential(credential);
     }
-
   }, [response]);
 
   React.useEffect( ()=> {
-    firebase.auth().onAuthStateChanged(user => {
-     if(user) {
-       navigation.navigate('Dashboard');
-     }
-    })
+    firebase.auth().onAuthStateChanged(user => { if(user) { navigation.navigate('Dashboard'); } })
   })
 
   const imgW = 360;
@@ -48,14 +44,10 @@ export default function WelcomeScreen( {navigation} ) {
         <StatusBar style="auto" />
 
         <Image source={{width:imgW, height:imgH, uri:`https://picsum.photos/${imgW}/${imgH}`}}/>
-        
-        <Text style={styles.welcome}> COVID-19 {"\n"} Daily Dashboard </Text>
-        
-        <Button disabled={!request} title = "Login with Google" onPress={ ()=> { promptAsync(); } } />
 
-        {/* <TouchableOpacity onPress={() => { promptAsync();} } style={styles.loginButton}>
-          <Text style={styles.buttonText}> Login with Google </Text>
-        </TouchableOpacity> */}
+        <Text style={styles.welcome}> COVID-19 {"\n"} Daily Dashboard </Text>
+
+        <Button title = "Login with Google" onPress={()=> { promptAsync(); } } />
 
       </SafeAreaView>
     </ImageBackground>

@@ -6,27 +6,21 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';  
 
-var name, email, photoURL, provider, userID ;
-firebase.auth().onAuthStateChanged(function(user) { 
+var name, email, photoURL, provider, userID;
+firebase.auth().onAuthStateChanged( user => {
   if (user) {
-    user.providerData.forEach(function (profile) {
-    name      = profile.displayName;
-    email     = profile.email;
-    photoURL  = profile.photoURL;
-    provider  = profile.providerId;
-	userID    = profile.email;
-    })
+    name      = user.displayName;
+    email     = user.email;
+    photoURL  = user.photoURL;
+    provider  = user.providerId;
+	  userID    = user.email;
+
   } else { console.log("No sign in/Authentication failed."); }
 })
 
-
-// firestore user details
-console.log(userID);
 const usersRef = firebase.firestore().collection('users');
 
-const Separator = () => (
-	<View style={styles.separator} />
-  );
+const Separator = () => ( <View style={styles.separator} /> );
 
 const answers = {
 	Q1: 0,
@@ -54,9 +48,7 @@ class CovidTest extends React.Component {
 						Fever of 100 F, or feeling unusually hot (if no thermometer available) accompanied by shivering/chills
 					</Text>
 					<View style={styles.fixToText}>
-						<Button
-							title="No"
-							onPress={() => 
+						<Button title="No" onPress={() => 
 								answers.Q1 = 0
 							}
 						/>
@@ -210,14 +202,7 @@ class CovidTest extends React.Component {
 				</View>
 				<Separator />
 					<View>
-						<Button
-							title="Submit"
-							onPress={()=>
-							
-								{usersRef.doc(userID).update(answers); 
-								this.props.navigation.push('Dashboard') }
-							}
-						/>
+						<Button title="Submit" onPress={()=> {usersRef.doc(userID).update(answers); this.props.navigation.push('Dashboard') } } />
 					</View>
 			</SafeAreaView>
 		)
