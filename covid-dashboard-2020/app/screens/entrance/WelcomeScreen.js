@@ -9,6 +9,8 @@ import 'firebase/auth';
 import { firebaseConfig } from '../../../config';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import firestore from '@react-native-firebase/firestore';
+
 
 // Initialize Firebase
 if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
