@@ -1,10 +1,10 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
+import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
         from 'react-native';
 import background from '../../assets/abstract_background.jpg'
 
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import { firebaseConfig } from '../../../config';
 import * as WebBrowser from 'expo-web-browser';
@@ -25,13 +25,19 @@ export default function WelcomeScreen( {navigation} ) {
   React.useEffect( ()=> {
     if (response?.type === 'success') {
       const { id_token } = response.params;
-
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
       firebase.auth().signInWithCredential(credential);
-      console.log("Login successful, moving to dashboard");
-      navigation.navigate('Dashboard');
     }
+
   }, [response]);
+
+  React.useEffect( ()=> {
+    firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        navigation.navigate('Dashboard');
+      }
+    })
+  })
 
   const imgW = 360;
   const imgH = 180;
@@ -43,12 +49,13 @@ export default function WelcomeScreen( {navigation} ) {
 
         <Image source={{width:imgW, height:imgH, uri:`https://picsum.photos/${imgW}/${imgH}`}}/>
         
-        <Text style={styles.welcome}> Welcome to </Text>
-        <Text style={styles.appName}> COVID-19 Daily Dashboard </Text>
+        <Text style={styles.welcome}> COVID-19 {"\n"} Daily Dashboard </Text>
         
-        <TouchableOpacity onPress={() => { promptAsync(); } } style={styles.loginButton}>
+        <Button disabled={!request} title = "Login with Google" onPress={ ()=> { promptAsync(); } } />
+
+        {/* <TouchableOpacity onPress={() => { promptAsync();} } style={styles.loginButton}>
           <Text style={styles.buttonText}> Login with Google </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
       </SafeAreaView>
     </ImageBackground>
@@ -60,19 +67,13 @@ const styles = StyleSheet.create({
   { flex:1, alignItems:'center', justifyContent:'center',
   },
   welcome: 
-  { color:'#222', fontSize:24, marginHorizontal:10, marginBottom:5, marginTop:24,
-  },
-  appName: 
-  { color:'#222', fontSize:32, marginHorizontal:10, marginBottom:10, marginTop:0, fontFamily:'Trebuchet MS',
+  { textAlign:'center', color:'#222', fontSize:32,marginBottom:10, marginTop:10, fontFamily:'Trebuchet MS',
   },
   loginButton: 
   { backgroundColor:'dodgerblue', padding:6, borderRadius:5, marginTop:10, width:"24%", alignItems:'center',
   },
-  signupButton: 
-  { backgroundColor:'darkred', padding:6, borderRadius:5, marginTop:4, width:"24%", alignItems:'center',
-  },
   buttonText: 
-  { fontSize:20, color:'#FFF', 
+  { textAlign:'center', fontSize:20, color:'#FFF', 
   },
   background: 
   { flex:1, width:'100%', height:'100%',
