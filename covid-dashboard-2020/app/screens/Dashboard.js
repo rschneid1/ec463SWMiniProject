@@ -1,9 +1,9 @@
 import React from 'react'
-import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity,View } 
-  from 'react-native'
+import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity,View 
+  } from 'react-native'
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import 'firebase/firestore';
 
 var name, email, photoURL, provider, userID;
 
@@ -13,11 +13,12 @@ firebase.auth().onAuthStateChanged( user => {
     email     = user.email;
     photoURL  = user.photoURL;
     provider  = user.providerId;
-	  userID    = profile.email;
-	  console.log(name, email, provider);
-	  // firestore user details
+	  userID    = user.email;
+
+    console.log(name, email, provider);
+
 	  const data = {
-		id: userID,
+		id: userID, 
 		Q1: 0,
 		Q2: 0,
 		Q3:	0,
@@ -26,14 +27,14 @@ firebase.auth().onAuthStateChanged( user => {
 		Q6: 0,
 		Q7: 0,
 		Q8: 0
-	  };
+    };
+    
 	  const usersRef = firebase.firestore().collection('users');
-	  //console.log(userID);
-	  if (!usersRef.doc(userID).get()){
+    console.log(userID);
+
 		usersRef.doc(userID).set(data);
-	  }
-	  usersRef.doc(userID).update(data);
-	  
+    usersRef.doc(userID).update(data);
+    
   } else { console.log("Signed out."); }
 })
 
@@ -48,8 +49,10 @@ class Dashboard extends React.Component {
       
       <SafeAreaView style={styles.container}>
         <Text style={styles.welcome}> Welcome, { name } </Text>
-        <Image style={styles.profilePicture} source={{ uri: photoURL }} />
-        <Separator />
+        <Image style={styles.profilePicture} source={ { uri: photoURL } } />
+        
+        <Separator/>
+        
         <Button title="Daily Symptom Tracker" onPress={ ()=> {this.props.navigation.navigate('CovidTest') } } />
         <Button title="COVID-19 Statistics" onPress={ ()=> { this.props.navigation.navigate('Statistics') } } />
 
@@ -71,14 +74,18 @@ const styles = StyleSheet.create({
   { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center',
   },
   loginButton: 
-  { backgroundColor:'dodgerblue', padding:6, borderRadius:5, marginTop:10, width:"24%", alignItems:'center',
+  { backgroundColor:'red', padding:5, borderRadius:5, marginTop:'10px', marginBottom:'10px', width:"15%", alignItems:'center',
+  },
+  buttonText: 
+  { textAlign:'center', fontSize:24, color:'#FFF', 
   },
   welcome: 
   { color:'#222', fontSize:24, marginHorizontal:10, marginBottom:5, marginTop:24,
   },
-  separator: {
-	marginVertical: 8,
-	borderBottomColor: '#737373',
-	borderBottomWidth: StyleSheet.hairlineWidth,
+  profilePicture:
+  { width:'10%', height:'10%', resizeMode:'contain', marginTop:10, marginBottom:10,
+  },
+  separator: 
+  { marginVertical: 8, borderBottomColor: '#737373', borderBottomWidth: StyleSheet.hairlineWidth, 
   },
 })

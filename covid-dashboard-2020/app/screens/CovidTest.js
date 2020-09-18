@@ -1,42 +1,25 @@
 import React from 'react';
-import { Image,
-		 Text,
-		 StyleSheet,
-		 Button,
-		 View, 
-		 SafeAreaView,
-		 Alert,
-	} from 'react-native';
-import Constants from "expo-constants";
-import * as firebase from 'firebase/app';
-import firestore from '@firebase/firestore';
+import { Button, SafeAreaView, StyleSheet, Text, View,
+  } from 'react-native';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';  
 
-// authentication variables
-var name, email, photoURL, signedInWith, userID;
-firebase.auth().onAuthStateChanged(function(user) {
+var name, email, photoURL, provider, userID;
+firebase.auth().onAuthStateChanged( user => {
   if (user) {
-    user.providerData.forEach(function (profile) {
-      name = profile.displayName;
-      email = profile.email;
-      photoURL = profile.photoURL;
-      signedInWith = profile.providerId;
-	  userID = profile.email;
-	  
-	 
-	  
-    })
-  } else { console.log("No user signed in or Authentication failed."); }
+    name      = user.displayName;
+    email     = user.email;
+    photoURL  = user.photoURL;
+    provider  = user.providerId;
+	userID    = user.email;
+
+  } else { console.log("No sign in/Authentication failed."); }
 })
 
- const usersRef = firebase.firestore().collection('users');
+const usersRef = firebase.firestore().collection('users');
 
-// firestore user details
-console.log(userID);
-
-
-const Separator = () => (
-  <View style={styles.separator} />
-);
+const Separator = () => ( <View style={styles.separator} /> );
 
 const answers = {
 	Q1: 0,
@@ -64,9 +47,7 @@ class CovidTest extends React.Component {
 						Fever of 100 F, or feeling unusually hot (if no thermometer available) accompanied by shivering/chills
 					</Text>
 					<View style={styles.fixToText}>
-						<Button
-							title="No"
-							onPress={() => 
+						<Button title="No" onPress={() => 
 								answers.Q1 = 0
 							}
 						/>
@@ -220,14 +201,7 @@ class CovidTest extends React.Component {
 				</View>
 				<Separator />
 					<View>
-						<Button
-							title="Submit"
-							onPress={()=>
-							
-								{usersRef.doc(userID).update(answers); 
-								this.props.navigation.push('Dashboard') }
-							}
-						/>
+						<Button title="Submit" onPress={()=> {usersRef.doc(userID).update(answers); this.props.navigation.push('Dashboard') } } />
 					</View>
 			</SafeAreaView>
 		)

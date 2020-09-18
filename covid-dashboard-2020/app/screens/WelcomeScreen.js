@@ -2,17 +2,18 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
         from 'react-native';
-import background from '../../assets/abstract_background.jpg'
+import background from '../assets/abstract_background.jpg'
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { firebaseConfig } from '../../../config';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
-import firestore from '@react-native-firebase/firestore';
+import { firebaseConfig } from '../../config';
 
+import * as WebBrowser    from 'expo-web-browser';
+import * as Google        from 'expo-auth-session/providers/google';
 
 // Initialize Firebase
+//// https://docs.expo.io/guides/using-firebase/#user-authentication
+//// https://docs.expo.io/versions/latest/sdk/google/
 if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 
 // https://docs.expo.io/guides/authentication/#google
@@ -20,10 +21,10 @@ WebBrowser.maybeCompleteAuthSession();
 
 var userID;
 export default function WelcomeScreen( {navigation} ) {  
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
-    { clientId: '467420770701-jvmc15drmmrh1ng1kn4vnl1v3943spma.apps.googleusercontent.com',
-    },
-  );
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest( { 
+    clientId: '467420770701-jvmc15drmmrh1ng1kn4vnl1v3943spma.apps.googleusercontent.com',
+    }
+  )
 
   React.useEffect( ()=> {
     if (response?.type === 'success') {
@@ -31,24 +32,23 @@ export default function WelcomeScreen( {navigation} ) {
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
       firebase.auth().signInWithCredential(credential);
     }
-
   }, [response]);
 
   React.useEffect( ()=> {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
-		userID = user.email;
-		const usersRef = firebase.firestore().collection('users');
-		if(usersRef.doc(userID).get()){
-			var docRef = usersRef.doc(userID);
-			docRef.get().then(function(doc) {
-				var admin = doc.get('admin1');
-				console.log(admin);
-				if(admin == 1){
-					navigation.navigate('AdminDashboard');
-				}
-			})
-		}
+		    userID = user.email;
+		    const usersRef = firebase.firestore().collection('users');
+		    if (usersRef.doc(userID).get()) {
+			    var docRef = usersRef.doc(userID);
+			    docRef.get().then(function(doc) {
+				    var admin = doc.get('admin1');
+				    console.log(admin);
+				    if(admin == 1){
+					    navigation.navigate('AdminDashboard');
+				    }
+			    })
+		    }
         navigation.navigate('Dashboard');
       }
     })
@@ -63,14 +63,12 @@ export default function WelcomeScreen( {navigation} ) {
         <StatusBar style="auto" />
 
         <Image source={{width:imgW, height:imgH, uri:`https://picsum.photos/${imgW}/${imgH}`}}/>
-        
-        <Text style={styles.welcome}> COVID-19 {"\n"} Daily Dashboard </Text>
-        
-        <Button disabled={!request} title = "Login with Google" onPress={ ()=> { promptAsync(); } } />
 
-        {/* <TouchableOpacity onPress={() => { promptAsync();} } style={styles.loginButton}>
-          <Text style={styles.buttonText}> Login with Google </Text>
-        </TouchableOpacity> */}
+        <Text style={styles.welcome}> COVID-19 {"\n"} Daily Dashboard </Text>
+
+        <Button title = "Login with Google" onPress={()=> { promptAsync(); } } />
+
+        <Text style={styles.copyright} > Created by Shazor Shahid and Ryan Schneider </Text>
 
       </SafeAreaView>
     </ImageBackground>
@@ -93,5 +91,8 @@ const styles = StyleSheet.create({
   background: 
   { flex:1, width:'100%', height:'100%',
   },
+  copyright: 
+  { justifyContent: 'center', textAlign: 'center', fontSize: 10, fontStyle: 'italic',
+  }
 
 })
