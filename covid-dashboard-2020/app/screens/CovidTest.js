@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, View,
-	} from 'react-native';
-
+  } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';  

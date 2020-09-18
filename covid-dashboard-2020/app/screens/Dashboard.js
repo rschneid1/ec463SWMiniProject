@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity,View } 
-  from 'react-native'
+import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity,View 
+  } from 'react-native'
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -39,7 +39,7 @@ firebase.auth().onAuthStateChanged( user => {
 
 const Separator = () => ( <View style={styles.separator} /> );
 
-class Dashboard extends React.Component {
+export default class Dashboard extends React.Component {
 
   render() {
     return (
@@ -64,14 +64,15 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
-
 const styles = StyleSheet.create({
   container: 
   { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center',
   },
   loginButton: 
-  { backgroundColor:'dodgerblue', padding:6, borderRadius:5, marginTop:10, width:"24%", alignItems:'center',
+  { backgroundColor:'red', padding:5, borderRadius:5, marginTop:'10px', marginBottom:'10px', width:"15%", alignItems:'center',
+  },
+  buttonText: 
+  { textAlign:'center', fontSize:24, color:'#FFF', 
   },
   welcome: 
   { color:'#222', fontSize:24, marginHorizontal:10, marginBottom:5, marginTop:24,
