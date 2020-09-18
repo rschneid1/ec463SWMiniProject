@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text } 
+import { Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
         from 'react-native';
 import background from '../../assets/abstract_background.jpg'
 
@@ -9,6 +9,8 @@ import 'firebase/auth';
 import { firebaseConfig } from '../../../config';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import firestore from '@react-native-firebase/firestore';
+
 
 // Initialize Firebase
 if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
@@ -16,6 +18,7 @@ if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 // https://docs.expo.io/guides/authentication/#google
 WebBrowser.maybeCompleteAuthSession();
 
+var userID;
 export default function WelcomeScreen( {navigation} ) {  
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     { clientId: '467420770701-jvmc15drmmrh1ng1kn4vnl1v3943spma.apps.googleusercontent.com',
@@ -33,9 +36,21 @@ export default function WelcomeScreen( {navigation} ) {
 
   React.useEffect( ()=> {
     firebase.auth().onAuthStateChanged(user => {
-     if(user) {
-       navigation.navigate('Dashboard');
-     }
+      if(user) {
+		userID = user.email;
+		const usersRef = firebase.firestore().collection('users');
+		if(usersRef.doc(userID).get()){
+			var docRef = usersRef.doc(userID);
+			docRef.get().then(function(doc) {
+				var admin = doc.get('admin1');
+				console.log(admin);
+				if(admin == 1){
+					navigation.navigate('AdminDashboard');
+				}
+			})
+		}
+        navigation.navigate('Dashboard');
+      }
     })
   })
 

@@ -1,20 +1,21 @@
 import React from 'react'
-import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } 
+import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity,View } 
   from 'react-native'
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 var name, email, photoURL, provider, userID;
+
 firebase.auth().onAuthStateChanged( user => {
   if (user) {
     name      = user.displayName;
     email     = user.email;
     photoURL  = user.photoURL;
     provider  = user.providerId;
-    userID    = user.email;
-    
-    console.log(name, email, provider);
-    
+	  userID    = profile.email;
+	  console.log(name, email, provider);
+	  // firestore user details
 	  const data = {
 		id: userID,
 		Q1: 0,
@@ -25,20 +26,22 @@ firebase.auth().onAuthStateChanged( user => {
 		Q6: 0,
 		Q7: 0,
 		Q8: 0
-    };
-
+	  };
 	  const usersRef = firebase.firestore().collection('users');
-    if ( !usersRef.doc(userID).get() ) {
+	  //console.log(userID);
+	  if (!usersRef.doc(userID).get()){
 		usersRef.doc(userID).set(data);
-    }
-    usersRef.doc(userID).update(data);
-
+	  }
+	  usersRef.doc(userID).update(data);
+	  
   } else { console.log("Signed out."); }
 })
 
-const Separator = () => ( <View style={styles.separator} /> );
+const Separator = () => (
+	<View style={styles.separator} />
+);
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
 
   render() {
     return (
@@ -61,6 +64,8 @@ export default class Dashboard extends React.Component {
   }
 }
 
+export default Dashboard;
+
 const styles = StyleSheet.create({
   container: 
   { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center',
@@ -71,8 +76,9 @@ const styles = StyleSheet.create({
   welcome: 
   { color:'#222', fontSize:24, marginHorizontal:10, marginBottom:5, marginTop:24,
   },
-  separator: 
-  { marginVertical: 8, borderBottomColor: '#737373', borderBottomWidth: StyleSheet.hairlineWidth,
+  separator: {
+	marginVertical: 8,
+	borderBottomColor: '#737373',
+	borderBottomWidth: StyleSheet.hairlineWidth,
   },
-
 })

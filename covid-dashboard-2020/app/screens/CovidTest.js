@@ -9,7 +9,7 @@ import { Image,
 	} from 'react-native';
 import Constants from "expo-constants";
 import * as firebase from 'firebase/app';
-import firestore from '@react-native-firebase/firestore';
+import firestore from '@firebase/firestore';
 
 // authentication variables
 var name, email, photoURL, signedInWith, userID;
@@ -22,14 +22,17 @@ firebase.auth().onAuthStateChanged(function(user) {
       signedInWith = profile.providerId;
 	  userID = profile.email;
 	  
+	 
+	  
     })
   } else { console.log("No user signed in or Authentication failed."); }
 })
 
+ const usersRef = firebase.firestore().collection('users');
 
 // firestore user details
 console.log(userID);
-const usersRef = firebase.firestore().collection('users');
+
 
 const Separator = () => (
   <View style={styles.separator} />
