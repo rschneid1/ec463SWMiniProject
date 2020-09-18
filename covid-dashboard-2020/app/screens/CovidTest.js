@@ -1,29 +1,22 @@
 import React from 'react';
-import { Image,
-		 Text,
-		 StyleSheet,
-		 Button,
-		 View, 
-		 SafeAreaView,
-		 Alert,
+import { Button, SafeAreaView, StyleSheet, Text, View,
 	} from 'react-native';
-import Constants from "expo-constants";
-import * as firebase from 'firebase/app';
-import firestore from '@react-native-firebase/firestore';
 
-// authentication variables
-var name, email, photoURL, signedInWith, userID;
-firebase.auth().onAuthStateChanged(function(user) {
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';  
+
+var name, email, photoURL, provider, userID ;
+firebase.auth().onAuthStateChanged(function(user) { 
   if (user) {
     user.providerData.forEach(function (profile) {
-      name = profile.displayName;
-      email = profile.email;
-      photoURL = profile.photoURL;
-      signedInWith = profile.providerId;
-	  userID = profile.email;
-	  
+    name      = profile.displayName;
+    email     = profile.email;
+    photoURL  = profile.photoURL;
+    provider  = profile.providerId;
+	userID    = profile.email;
     })
-  } else { console.log("No user signed in or Authentication failed."); }
+  } else { console.log("No sign in/Authentication failed."); }
 })
 
 
@@ -32,8 +25,8 @@ console.log(userID);
 const usersRef = firebase.firestore().collection('users');
 
 const Separator = () => (
-  <View style={styles.separator} />
-);
+	<View style={styles.separator} />
+  );
 
 const answers = {
 	Q1: 0,
