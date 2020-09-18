@@ -10,5 +10,6 @@ built in JavaScript using Expo framework, with Single-Sign-On (SSO) authenticati
 
 ------
 
-Expo build link: https://expo.io/@sshahid/covid-dashboard-2020
+Expo build link:    https://expo.io/@sshahid/covid-dashboard-2020
 
+Firebase Console:   https://console.firebase.google.com/u/0/project/ec463-sw-mini/overview
