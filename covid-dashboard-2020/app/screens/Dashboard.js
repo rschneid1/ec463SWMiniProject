@@ -1,19 +1,20 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity,View,Button} from 'react-native'
-import * as firebase from 'firebase/app';
+import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
+  from 'react-native'
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-var name, email, photoURL, signedInWith, userID;
-firebase.auth().onAuthStateChanged(function(user) {
+var name, email, photoURL, provider, userID;
+
+firebase.auth().onAuthStateChanged( user => {
   if (user) {
-    user.providerData.forEach(function (profile) {
-      name = profile.displayName;
-      email = profile.email;
-      photoURL = profile.photoURL;
-      signedInWith = profile.providerId;
-	  userID = profile.email;
-	  
+    name      = user.displayName;
+    email     = user.email;
+    photoURL  = user.photoURL;
+    provider  = user.providerId;
+	  userID    = profile.email;
+	  console.log(name, email, provider);
 	  // firestore user details
 	  const data = {
 		id: userID,
@@ -34,7 +35,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 	  usersRef.doc(userID).update(data);
 	  
     })
-  } else { console.log("No user signed in or Authentication failed."); }
+  } else { console.log("Signed out."); }
+
 })
 
 const Separator = () => (
@@ -47,25 +49,18 @@ class Dashboard extends React.Component {
     return (
       
       <SafeAreaView style={styles.container}>
-		<View>
-			<Text style={styles.title}>
-				Welcome , { name }
-			</Text>
-		</View>
-		<Separator />
-		<View>
-			<Button
-				title="Fill out Symptom Test"
-				onPress={() => 
-					this.props.navigation.push('CovidTest')
-				}
-			/>
-		</View>
-        
-        <TouchableOpacity onPress={() => { firebase.auth().signOut(); this.props.navigation.push('Welcome') } } style={styles.loginButton}>
+        <Text style={styles.welcome}> Welcome, { name } </Text>
+        <Image style={styles.profilePicture} source={{ uri: photoURL }} />
+        <Separator />
+        <Button title="Daily Symptom Tracker" onPress={ ()=> {this.props.navigation.navigate('CovidTest') } } />
+        <Button title="COVID-19 Statistics" onPress={ ()=> { this.props.navigation.navigate('Statistics') } } />
+
+        <TouchableOpacity onPress={ ()=> { firebase.auth().signOut().then( this.props.navigation.push('Welcome') ) } } 
+            style={styles.loginButton}>
           <Text style={styles.buttonText}> Logout </Text>
         </TouchableOpacity>
 
+        <Text>Email: {email} authenticated with {provider} </Text>
       </SafeAreaView>
     )
   }
