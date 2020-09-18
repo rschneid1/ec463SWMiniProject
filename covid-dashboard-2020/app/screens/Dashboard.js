@@ -1,36 +1,40 @@
 import React from 'react'
 import { Button, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } 
   from 'react-native'
-import * as firebase from 'firebase/app';
+
+import firebase from 'firebase/app';
 import 'firebase/auth';
 
-var name, email, photoURL, provider;
+var name, email, photoURL, provider, id;
 
 firebase.auth().onAuthStateChanged( user => {
   if (user) {
-    console.log("Retrieving user data.");
-
     name      = user.displayName;
     email     = user.email;
     photoURL  = user.photoURL;
     provider  = user.providerId;
-
+    
+    console.log(name, email, provider);
   } else { console.log("Signed out."); }
 })
 
 class Dashboard extends React.Component {
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.welcome}> Welcome, { name } </Text>
         <Image style={styles.profilePicture} source={{ uri: photoURL }} />
 
+        <Button title="Daily Symptom Tracker" onPress={ ()=> {this.props.navigation.navigate('SymptomTest') } } />
         <Button title="COVID-19 Statistics" onPress={ ()=> { this.props.navigation.navigate('Statistics') } } />
 
-        <TouchableOpacity onPress={ ()=> { firebase.auth().signOut(); this.props.navigation.push('Welcome') } } 
+        <TouchableOpacity onPress={ ()=> { firebase.auth().signOut().then( this.props.navigation.push('Welcome') ) } } 
             style={styles.loginButton}>
           <Text style={styles.buttonText}> Logout </Text>
         </TouchableOpacity>
+
+        <Text>Email: {email} authenticated with {provider} </Text>
       </SafeAreaView>
     )
   }
