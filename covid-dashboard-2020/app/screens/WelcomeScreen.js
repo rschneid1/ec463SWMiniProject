@@ -6,12 +6,14 @@ import background from '../../assets/abstract_background.jpg'
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { firebaseConfig } from '../../../config';
+import { firebaseConfig } from '../../config';
 
 import * as WebBrowser    from 'expo-web-browser';
 import * as Google        from 'expo-auth-session/providers/google';
 
 // Initialize Firebase
+//// https://docs.expo.io/guides/using-firebase/#user-authentication
+//// https://docs.expo.io/versions/latest/sdk/google/
 if(!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 
 // https://docs.expo.io/guides/authentication/#google
@@ -49,6 +51,8 @@ export default function WelcomeScreen( {navigation} ) {
 
         <Button title = "Login with Google" onPress={()=> { promptAsync(); } } />
 
+        <Text style={styles.copyright} > Created by Shazor Shahid and Ryan Schneider </Text>
+
       </SafeAreaView>
     </ImageBackground>
   )
@@ -70,5 +74,8 @@ const styles = StyleSheet.create({
   background: 
   { flex:1, width:'100%', height:'100%',
   },
+  copyright: 
+  { justifyContent: 'center', textAlign: 'center', fontSize: 10, fontStyle: 'italic',
+  }
 
 })
