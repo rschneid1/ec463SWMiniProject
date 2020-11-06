@@ -1,5 +1,7 @@
-> npm install expo
+# How to get started with this project
 
-> npm start 
-OR
+git clone this repo,
+
+> npm install expo
+>
 > expo start:web --https
