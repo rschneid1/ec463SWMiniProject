@@ -15,3 +15,5 @@ covid-dashboard-2020/web-build/
 # protect key
 covid-dashboard-2020/config.js
 covid-dashboard-2020/ec463-sw-miniproj-firebase-adminsdk-4n2hz-7904bf671d.json
+
+.expo/
